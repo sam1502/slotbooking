@@ -3,6 +3,7 @@ package com.postman.slotbooking.config;
 import com.postman.slotbooking.models.Users;
 import com.postman.slotbooking.services.UserRegistrationImpl;
 import com.postman.slotbooking.util.JWTUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,9 +34,17 @@ public class ApplicationFilter extends OncePerRequestFilter {
         String username = null;
 
         final String authHeader = request.getHeader("Authorization");
-        if(authHeader!= null && authHeader.startsWith("Bearer ")) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            username = jwtUtil.extractUserName(jwt);
+            try {
+                username = jwtUtil.extractUserName(jwt);
+            } catch (IllegalArgumentException e) {
+                logger.error("Unable to get JWT Token");
+            } catch (ExpiredJwtException e) {
+                logger.error("JWT Token has expired");
+            }
+        } else {
+            logger.warn("JWT Token does not begin with Bearer String");
         }
 
         if(username != null  && SecurityContextHolder.getContext().getAuthentication() == null) {

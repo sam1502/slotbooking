@@ -3,6 +3,8 @@ package com.postman.slotbooking.resources;
 import com.postman.slotbooking.models.Users;
 import com.postman.slotbooking.services.UserRegistrationImpl;
 import com.postman.slotbooking.util.JWTUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +30,12 @@ public class UserRegistrationResource {
     @Autowired
     private JWTUtil jwtUtil;
 
+    private final Logger logger = LoggerFactory.getLogger(UserRegistrationResource.class);
+
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Users users) {
+        logger.info("Registration request for user name :{} ", users.getUserName());
         ResponseEntity<String> response;
         Integer userId = userRegistration.registerUser(users);
 
@@ -44,6 +49,7 @@ public class UserRegistrationResource {
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> signInAndReturnAuthenticationToken(@RequestBody Users users) throws Exception{
+        logger.info("Sign-in request for user name :{} ", users.getUserName());
         authenticate(users.getUserName(), users.getPassword());
 
         Users existingUser  = userRegistration.findUserByUserName(users.getUserName());
