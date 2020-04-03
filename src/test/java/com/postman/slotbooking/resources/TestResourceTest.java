@@ -1,6 +1,6 @@
 package com.postman.slotbooking.resources;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TestResourceTest {
 
     @Spy
-    @InjectMocks
     TestResource testResource;
 
     MockMvc mockMvc;
@@ -27,23 +26,22 @@ class TestResourceTest {
         mockMvc = MockMvcBuilders.standaloneSetup(testResource).build();
     }
 
-
     @Nested
-    @DisplayName("given test resource")
-    public class givenTestResource {
+    @DisplayName("Given test resource")
+    public class GivenTestResource {
 
         @Nested
         @DisplayName("When hit endpoint")
-        public class whenHitEndpoint {
+        public class WhenHitEndpoint {
 
             @Test
             @DisplayName("Then return the current version")
-            public void thenReturnTheCurrentVersion() throws Exception {
-
+            public void thenReturnTheCurrentVersion() throws Exception{
                 mockMvc.perform(get("/test")).
                         andExpect(status().isOk()).
                         andReturn();
             }
         }
+
     }
 }
