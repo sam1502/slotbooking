@@ -1,6 +1,6 @@
 package com.postman.slotbooking.util;
 
-import com.postman.slotbooking.models.Users;
+import com.postman.slotbooking.models.PUsers;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -42,9 +42,9 @@ public class JWTUtil {
         return extractExipryDate(token).before(new Date());
     }
 
-    public String generateToken(Users users) {
+    public String generateToken(PUsers PUsers) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, users.getUserName());
+        return createToken(claims, PUsers.getUserName());
     }
 
     private String createToken(Map<String, Object> claims, String subject) {

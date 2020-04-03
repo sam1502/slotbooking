@@ -1,6 +1,6 @@
 package com.postman.slotbooking.resources;
 
-import com.postman.slotbooking.models.Users;
+import com.postman.slotbooking.models.PUsers;
 import com.postman.slotbooking.services.UserRegistrationImpl;
 import com.postman.slotbooking.util.JWTUtil;
 import org.slf4j.Logger;
@@ -34,10 +34,10 @@ public class UserRegistrationResource {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody Users users) {
-        logger.info("Registration request for user name :{} ", users.getUserName());
+    public ResponseEntity<String> registerUser(@RequestBody PUsers PUsers) {
+        logger.info("Registration request for user name :{} ", PUsers.getUserName());
         ResponseEntity<String> response;
-        Integer userId = userRegistration.registerUser(users);
+        Integer userId = userRegistration.registerUser(PUsers);
 
         if(userId != -1) {
             response = new ResponseEntity<>(userId.toString(), HttpStatus.OK);
@@ -48,11 +48,11 @@ public class UserRegistrationResource {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<?> signInAndReturnAuthenticationToken(@RequestBody Users users) throws Exception{
-        logger.info("Sign-in request for user name :{} ", users.getUserName());
-        authenticate(users.getUserName(), users.getPassword());
+    public ResponseEntity<?> signInAndReturnAuthenticationToken(@RequestBody PUsers PUsers) throws Exception{
+        logger.info("Sign-in request for user name :{} ", PUsers.getUserName());
+        authenticate(PUsers.getUserName(), PUsers.getPassword());
 
-        Users existingUser  = userRegistration.findUserByUserName(users.getUserName());
+        PUsers existingUser  = userRegistration.findUserByUserName(PUsers.getUserName());
         final String jwtToken = jwtUtil.generateToken(existingUser);
 
         return new ResponseEntity<>(jwtToken, HttpStatus.OK);

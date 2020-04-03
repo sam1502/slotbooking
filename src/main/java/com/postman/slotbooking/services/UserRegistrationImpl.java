@@ -1,6 +1,6 @@
 package com.postman.slotbooking.services;
 
-import com.postman.slotbooking.models.Users;
+import com.postman.slotbooking.models.PUsers;
 import com.postman.slotbooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -18,22 +18,26 @@ public class UserRegistrationImpl implements UserDetailsService {
     UserRepository userRepository;
 
 
-    public Integer registerUser(Users users) {
-        Users user = userRepository.findByuserName(users.getUserName());
+    public Integer registerUser(PUsers PUsers) {
+        PUsers user = userRepository.findByuserName(PUsers.getUserName());
 
         if(user == null) {
-            return userRepository.saveAndFlush(users).getId();
+            return userRepository.saveAndFlush(PUsers).getId();
         } else
             return -1;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users users = userRepository.findByuserName(username);
-        return new User(users.getUserName(), users.getPassword(),new ArrayList<>());
+        PUsers PUsers = userRepository.findByuserName(username);
+        return new User(PUsers.getUserName(), PUsers.getPassword(),new ArrayList<>());
     }
 
-    public Users findUserByUserName(String userName) {
+    public PUsers findUserByUserName(String userName) {
         return userRepository.findByuserName(userName);
+    }
+
+    public PUsers findUserByUserId(Integer id) {
+        return userRepository.getOne(id);
     }
 }

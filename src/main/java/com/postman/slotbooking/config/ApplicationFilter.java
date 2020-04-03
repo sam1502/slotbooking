@@ -1,6 +1,5 @@
 package com.postman.slotbooking.config;
 
-import com.postman.slotbooking.models.Users;
 import com.postman.slotbooking.services.UserRegistrationImpl;
 import com.postman.slotbooking.util.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;

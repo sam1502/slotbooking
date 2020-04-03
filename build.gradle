@@ -18,7 +18,12 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.2.1.RELEASE'
 	runtimeOnly 'org.postgresql:postgresql'
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	implementation 'com.google.code.gson:gson:2.8.5'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
+	implementation 'org.junit.jupiter:junit-jupiter-api'
 }
 
 test {
