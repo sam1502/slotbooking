@@ -1,6 +1,7 @@
 package com.postman.slotbooking.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -16,6 +17,9 @@ public class PUsers {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "created_on", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    private LocalDateTime createdOn;
 
     public Integer getId() {
         return id;
@@ -39,5 +43,13 @@ public class PUsers {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
     }
 }

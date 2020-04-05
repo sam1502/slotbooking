@@ -10,6 +10,8 @@ public class AvailableTimings {
 
     private LocalDateTime endTime;
 
+    private String remarks;
+
     public String getUserName() {
         return userName;
     }
@@ -32,5 +34,13 @@ public class AvailableTimings {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

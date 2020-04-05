@@ -23,6 +23,11 @@ public class PSchedleAvailable {
     @Column(name = "status")
     private boolean available;
 
+    @Column(name = "remarks")
+    private String remarks;
+
+    @Column(name = "booked_by_username")
+    private String bookedByUsername;
 
     public UUID getId() {
         return id;
@@ -62,5 +67,21 @@ public class PSchedleAvailable {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getBookedByUsername() {
+        return bookedByUsername;
+    }
+
+    public void setBookedByUsername(String bookedByUsername) {
+        this.bookedByUsername = bookedByUsername;
     }
 }

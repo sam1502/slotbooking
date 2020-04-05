@@ -47,9 +47,10 @@ public class UserRegistrationResource {
         if(userId != -1) {
             mapResponse.put("uerId", userId.toString());
             response = new ResponseEntity<>(mapResponse, HttpStatus.OK);
-        } else
-            mapResponse.put("error","Username already taken please select a new useranme");
+        } else {
+            mapResponse.put("error", "Username already taken please select a new useranme");
             response = new ResponseEntity<>(mapResponse, HttpStatus.CONFLICT);
+        }
 
         return response;
     }

@@ -92,7 +92,7 @@ class UserRegistrationResourceTest {
                         .content(new Gson().toJson(users))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isBadRequest());
+                        .andExpect(status().isConflict());
 
                 verify(userRegistration,times(1)).registerUser(any(PUsers.class));
             }

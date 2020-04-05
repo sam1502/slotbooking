@@ -21,7 +21,7 @@ public class UserRegistrationImpl implements UserDetailsService {
     public Integer registerUser(PUsers PUsers) {
         PUsers user = userRepository.findByuserName(PUsers.getUserName());
 
-        if(user == null) {
+        if (user == null) {
             return userRepository.saveAndFlush(PUsers).getId();
         } else
             return -1;
@@ -29,8 +29,12 @@ public class UserRegistrationImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         PUsers PUsers = userRepository.findByuserName(username);
-        return new User(PUsers.getUserName(), PUsers.getPassword(),new ArrayList<>());
+        if (PUsers == null) {
+            throw new UsernameNotFoundException(String.format("user with username %s not found", username));
+        }
+        return new User(PUsers.getUserName(), PUsers.getPassword(), new ArrayList<>());
     }
 
     public PUsers findUserByUserName(String userName) {
