@@ -149,8 +149,7 @@ public class SchedulingServiceImpl {
         List<PSchedleAvailable> schedleAvailables = schedulingRepository.getAvailableSlot(timings.getStartTime(), timings.getEndTime(), user.getId());
 
         for(PSchedleAvailable schedules : schedleAvailables) {
-            schedules.setAvailable(true);
-            schedulingRepository.saveAndFlush(schedules);
+            schedulingRepository.delete(schedules);
         }
     }
 
