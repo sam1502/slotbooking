@@ -19,7 +19,7 @@ public class JWTUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+    public static final long JWT_TOKEN_VALIDITY = 60 * 60;
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
@@ -31,6 +31,7 @@ public class JWTUtil {
     }
 
     public Date extractExipryDate(String token) {
+        System.out.println("Expiry date : "+extrackClaims(token, Claims::getExpiration));
         return extrackClaims(token, Claims::getExpiration);
     }
 
@@ -52,6 +53,7 @@ public class JWTUtil {
                 setIssuedAt(new Date(System.currentTimeMillis())).
                 setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*10000)).
                 signWith(SignatureAlgorithm.HS256, secret).compact();
+
     }
 
     //validate token

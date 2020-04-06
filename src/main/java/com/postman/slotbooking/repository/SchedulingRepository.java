@@ -17,4 +17,7 @@ public interface SchedulingRepository extends JpaRepository<PSchedleAvailable, I
 
     @Query(value = "select * from available_schedule where start_time>=?1 and end_time<=?2 and user_id=?3", nativeQuery = true)
     List<PSchedleAvailable> getAvailableSlot(LocalDateTime startTime, LocalDateTime endTime, Integer userId);
+
+    @Query(value = "select * from available_schedule where user_id=?1", nativeQuery = true)
+    List<PSchedleAvailable> getAllSlotsForUserId(Integer userId);
 }

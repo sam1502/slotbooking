@@ -53,7 +53,8 @@ class SchedulingResourceTest {
             @DisplayName("Then persist slots to db")
             public void thenPersistSlotsToDB() throws Exception{
 
-                when(schedulingService.persistMyTimings(any(AvailableTimings.class))).thenReturn(" ");
+                doReturn("sameer").when(schedulingResource).getCurrentUserName();
+                when(schedulingService.persistMyTimings(any(AvailableTimings.class))).thenReturn(new HashMap<>());
 
                 mockMvc.perform( MockMvcRequestBuilders
                         .post("/slots/available")
